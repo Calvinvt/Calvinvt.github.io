@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="d3,数据可视化,图表,chart,">
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="d3,数据可视化,图表,chart">
+<meta property="og:type" content="article">
+<meta property="og:title" content="d3">
+<meta property="og:url" content="http://yoursite.com/2019/01/18/d3/index.html">
+<meta property="og:site_name" content="Calvinvt&#39;s blog">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/uploads/backlit-dawn-dusk-1027131.jpg">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/149846/1547784052478-e1036227-99b9-458d-8090-41473f20e267.png#align=left&display=inline&height=642&linkTarget=_blank&name=image.png&originHeight=642&originWidth=769&size=120895&width=769">
+<meta property="og:updated_time" content="2019-02-03T01:20:49.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="d3">
+<meta name="twitter:image" content="http://yoursite.com/uploads/backlit-dawn-dusk-1027131.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/18/d3/">
+
+
+
+
+
+  <title>d3 | Calvinvt's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Calvinvt's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/18/d3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calvinvt">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/10278192?s=400&u=06bc70b5721f397f269b1234c6c59fa854fcdf09&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calvinvt's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">d3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-18T23:04:19+08:00">
+                2019-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">数据可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/uploads/backlit-dawn-dusk-1027131.jpg" alt=""><br><a id="more"></a></p>
+<h1 id="d3初体验"><a href="#d3初体验" class="headerlink" title="d3初体验"></a>d3初体验</h1><p>说到前端数据可视化，就不得不提到鼎鼎大名的d3.js。之前因为公司一直都在用echarts,所以对d3了解的不多。幸好前几个星期有个项目要实现一个人物关系的力导向图，并且人物图片要实现圆形。经过在网上查找资料后发现echarts并没有这样的功能，所以就想到了用d3来实现，最终实现的效果大体是这样滴~<br><img src="https://cdn.nlark.com/yuque/0/2019/png/149846/1547784052478-e1036227-99b9-458d-8090-41473f20e267.png#align=left&amp;display=inline&amp;height=642&amp;linkTarget=_blank&amp;name=image.png&amp;originHeight=642&amp;originWidth=769&amp;size=120895&amp;width=769" alt="image.png"><br>说说大体的实现思路：</p>
+<h3 id="1-构建力导向图"><a href="#1-构建力导向图" class="headerlink" title="1.构建力导向图"></a>1.构建力导向图</h3><p><em>目前我用的d3版本是v5.7.0</em><br>直接上代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> width = <span class="number">1170</span>,</span><br><span class="line">	height = <span class="number">800</span>;</span><br><span class="line"><span class="keyword">var</span> imgSize = <span class="number">60</span>;</span><br><span class="line"><span class="keyword">var</span> svg = d3</span><br><span class="line">	.select(<span class="string">"body"</span>)</span><br><span class="line">	.append(<span class="string">"svg"</span>)</span><br><span class="line">	.attr(<span class="string">"width"</span>, width)</span><br><span class="line">	.attr(<span class="string">"height"</span>, height);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> simulation = d3</span><br><span class="line">	.forceSimulation()</span><br><span class="line">	.alpha(<span class="number">0.2</span>)</span><br><span class="line">	.force(</span><br><span class="line">		<span class="string">"link"</span>,</span><br><span class="line">		d3.forceLink().id(<span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> d.id;</span><br><span class="line">		&#125;)</span><br><span class="line">	)</span><br><span class="line">	.force(</span><br><span class="line">		<span class="string">"charge"</span>,</span><br><span class="line">		d3</span><br><span class="line">			.forceManyBody()</span><br><span class="line">			.distanceMin(<span class="number">200</span>)</span><br><span class="line">			.strength(<span class="number">-250</span>)</span><br><span class="line">	)</span><br><span class="line">	.force(<span class="string">"center"</span>, d3.forceCenter(width / <span class="number">2</span>, height / <span class="number">2</span>))</span><br></pre></td></tr></table></figure></p>
+<p>首先我们去生成一个svg节点，利用d3基本的api就可以实现，然后根据官方文档的介绍，我们要生成一个simulation，我称它为模拟器，这个是最主要的，我们利用d3.forceSimulation这个方法生成了一个力导向图的模拟器，这个相当于是一个力导向图的框架，之后我们可以在这个框架上面添加我们需要的节点和连线</p>
+<h3 id="2-创建节点"><a href="#2-创建节点" class="headerlink" title="2. 创建节点"></a>2. 创建节点</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">svg.append(<span class="string">"defs"</span>)</span><br><span class="line">		.selectAll(<span class="string">"pattern"</span>)</span><br><span class="line">		.data(graph.nodes)</span><br><span class="line">		.enter()</span><br><span class="line">		.append(<span class="string">"pattern"</span>)</span><br><span class="line">		.attr(<span class="string">"patternUnits"</span>, <span class="string">"objectBoundingBox"</span>)</span><br><span class="line">		.attr(<span class="string">"patternContentUnits"</span>, <span class="string">"userSpaceOnUse"</span>)</span><br><span class="line">		.attr(<span class="string">"id"</span>, d =&gt; d.id)</span><br><span class="line">		.attr(<span class="string">"width"</span>, <span class="number">1.0</span>)</span><br><span class="line">		.attr(<span class="string">"height"</span>, <span class="number">1.0</span>)</span><br><span class="line">		.append(<span class="string">"image"</span>)</span><br><span class="line">		.attr(<span class="string">"width"</span>, d =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (d.main) &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="number">178</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> imgSize;</span><br><span class="line">		&#125;)</span><br><span class="line">		.attr(<span class="string">"height"</span>, d =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (d.main) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">178</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> imgSize;</span><br><span class="line">		&#125;)</span><br><span class="line">		.attr(<span class="string">"xlink:href"</span>, d =&gt; d.image)</span><br><span class="line">		.attr(<span class="string">"x"</span>, <span class="number">0</span>)</span><br><span class="line">		.attr(<span class="string">"y"</span>, d =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (d.main) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;);</span><br></pre></td></tr></table></figure>
+<p>d3选择器的用法和jQuery选择器用法类似，如果没有接触过可以自行查看相关文档，下面说下enter和exit的用法</p>
+<h4 id="enter"><a href="#enter" class="headerlink" title="enter()"></a>enter()</h4><p>返回数组数据相比对应节点数据多余出的那部分数据，示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d3.selectAll(<span class="string">'line'</span>)</span><br><span class="line">.data(data)</span><br><span class="line">.append(<span class="string">'line'</span>)</span><br><span class="line">.attr(<span class="string">'stroke'</span>,<span class="string">'red'</span>)</span><br></pre></td></tr></table></figure>
+<p>selectAll选中当前文档中所有line节点，如果line节点的个数为n,data数组长度为m，则enter选中的数据为n-m长度的data集合，以上代码会将少的那部分line节点上去。</p>
+<h4 id="exit"><a href="#exit" class="headerlink" title="exit()"></a>exit()</h4><p>返回选中节点比数据长度多的那部分节点集合</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">d3.select(<span class="string">'text'</span>)</span><br><span class="line">.data(data) <span class="comment">//data.length==n</span></span><br><span class="line">.exit() </span><br><span class="line">.remove()</span><br></pre></td></tr></table></figure>
+<p>以上代码执行后会将多余的text节点删除</p>
+<h3 id="3-创建连线和文字"><a href="#3-创建连线和文字" class="headerlink" title="3. 创建连线和文字"></a>3. 创建连线和文字</h3><p>连线：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> link = svg</span><br><span class="line">		.append(<span class="string">"g"</span>)</span><br><span class="line">		.attr(<span class="string">"class"</span>, <span class="string">"links"</span>)</span><br><span class="line">		.selectAll(<span class="string">"line"</span>)</span><br><span class="line">		.data(graph.links)</span><br><span class="line">		.enter()</span><br><span class="line">		.append(<span class="string">"line"</span>)</span><br><span class="line">		.attr(<span class="string">"stroke"</span>, <span class="string">"#00a0e9"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>文字：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> linkText = svg</span><br><span class="line">		.append(<span class="string">"g"</span>)</span><br><span class="line">		.selectAll(<span class="string">"circle"</span>)</span><br><span class="line">		.data(graph.nodes.filter(<span class="function"><span class="params">item</span> =&gt;</span> !item.empty))</span><br><span class="line">		.enter()</span><br><span class="line">		.append(<span class="string">"text"</span>)</span><br><span class="line">		.text(<span class="function"><span class="params">d</span> =&gt;</span> d.id);</span><br></pre></td></tr></table></figure></p>
+<p>创建连线和显示文字和创建节点的逻辑基本一样，只是选中的数据不同</p>
+<h3 id="4-连接节点和连线"><a href="#4-连接节点和连线" class="headerlink" title="4.连接节点和连线"></a>4.连接节点和连线</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">simulation</span><br><span class="line">		.nodes(graph.nodes)</span><br><span class="line">		.on(<span class="string">"tick"</span>, ticked)</span><br><span class="line">		.force(<span class="string">"link"</span>)</span><br><span class="line">		.links(graph.links);</span><br></pre></td></tr></table></figure>
+<p>在节点和连线都准备好的前提下我们可以将节点和连线关联起来，用simulation.nodes 和simulation.force(“link”).links()方法。<br>在这里要提下tick事件，节点和连线每次更新都会触发tick事件，因此我们要给tick事件增加回调函数，来更新节点和连线还有文字的位置。<br>下面是ticked代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ticked</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		node.attr(<span class="string">"cx"</span>, d =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (d.main) &#123;</span><br><span class="line">				<span class="keyword">return</span> width / <span class="number">2</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.x &lt;= imgSize) &#123;</span><br><span class="line">				<span class="keyword">return</span> imgSize;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.x &gt;= width - imgSize) &#123;</span><br><span class="line">				<span class="keyword">return</span> width - imgSize;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> d.x;</span><br><span class="line">		&#125;).attr(<span class="string">"cy"</span>, d =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (d.main) &#123;</span><br><span class="line">				<span class="keyword">return</span> height / <span class="number">2</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.y &lt;= imgSize) &#123;</span><br><span class="line">				<span class="keyword">return</span> imgSize;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.y &gt;= height) &#123;</span><br><span class="line">				<span class="keyword">return</span> height - imgSize;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> d.y;</span><br><span class="line">		&#125;);</span><br><span class="line">		link.attr(<span class="string">"x1"</span>, d =&gt; &#123;</span><br><span class="line">			<span class="keyword">if</span> (d.source.main) &#123;</span><br><span class="line">				<span class="keyword">return</span> width / <span class="number">2</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> d.source.x;</span><br><span class="line">		&#125;)</span><br><span class="line">			.attr(<span class="string">"y1"</span>, d =&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (d.source.main) &#123;</span><br><span class="line">					<span class="keyword">return</span> height / <span class="number">2</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> d.source.y;</span><br><span class="line">			&#125;)</span><br><span class="line">			.attr(<span class="string">"x2"</span>, d =&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (d.target.x &lt;= imgSize) &#123;</span><br><span class="line">					<span class="keyword">return</span> imgSize;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.target.x &gt;= width - imgSize) &#123;</span><br><span class="line">					<span class="keyword">return</span> width - imgSize;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> d.target.x;</span><br><span class="line">			&#125;)</span><br><span class="line">			.attr(<span class="string">"y2"</span>, d =&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (d.target.y &lt;= imgSize) &#123;</span><br><span class="line">					<span class="keyword">return</span> imgSize;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.target.y &gt;= height - imgSize) &#123;</span><br><span class="line">					<span class="keyword">return</span> height - imgSize;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> d.target.y;</span><br><span class="line">			&#125;);</span><br><span class="line"></span><br><span class="line">		linkText</span><br><span class="line">			.attr(<span class="string">"x"</span>, d =&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (d.main) &#123;</span><br><span class="line">					<span class="keyword">return</span> width / <span class="number">2</span> - <span class="number">20</span>;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.x &lt;= imgSize) &#123;</span><br><span class="line">					<span class="keyword">return</span> imgSize - <span class="number">20</span>;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.x &gt;= width - imgSize) &#123;</span><br><span class="line">					<span class="keyword">return</span> width - imgSize - <span class="number">20</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> d.x<span class="number">-20</span>;</span><br><span class="line">			&#125;)</span><br><span class="line">			.attr(<span class="string">"y"</span>, d =&gt; &#123;</span><br><span class="line">				<span class="keyword">if</span> (d.main) &#123;</span><br><span class="line">					<span class="keyword">return</span> height / <span class="number">2</span> + <span class="number">110</span>;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.y &lt;= imgSize) &#123;</span><br><span class="line">					<span class="keyword">return</span> imgSize + <span class="number">50</span>;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (d.y &gt;= height) &#123;</span><br><span class="line">					<span class="keyword">return</span> height - imgSize +<span class="number">50</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span> d.y+<span class="number">50</span>;</span><br><span class="line">			&#125;);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我检测了下边界值，为了不让节点和连线超出边界，但是现在用这样的方法重置节点和连线的位置在拖拽的时候会非常生硬，在广泛查了资料后还是没有找到比较好的解决方法，希望有办法的同学告知~:)</p>
+<h3 id="5-实现拖拽"><a href="#5-实现拖拽" class="headerlink" title="5. 实现拖拽"></a>5. 实现拖拽</h3><p>实现拖拽需要调用d3.drag，这里采用call方法调用drag方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">nodes.call(</span><br><span class="line">  d3.drag()</span><br><span class="line">  .on(<span class="string">"start"</span>,dragstarted)</span><br><span class="line">  .on(<span class="string">"drag"</span>,dragged)</span><br><span class="line">  .on(<span class="string">"end"</span>,dragended)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dragstarted</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!d3.event.active) simulation.alphaTarget(<span class="number">0.3</span>).restart();</span><br><span class="line">	d.fx = d.x;</span><br><span class="line">	d.fy = d.y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dragged</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">	d.fx = d3.event.x;</span><br><span class="line">	d.fy = d3.event.y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dragended</span>(<span class="params">d</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!d3.event.active) simulation.alphaTarget(<span class="number">0</span>);</span><br><span class="line">	d.fx = <span class="literal">null</span>;</span><br><span class="line">	d.fy = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里绑定了拖拽的三个时间，分别是开始，拖拽中和拖拽结束。在三个事件回调中去更新节点位置。</p>
+<h3 id="6-圆形图片"><a href="#6-圆形图片" class="headerlink" title="6. 圆形图片"></a>6. 圆形图片</h3><p>由于初始状态下nodes采用的并不是圆形图片，要实现圆形图片需要借助于svg中circle和pattern标签。关于这方面我是参考的这篇文章来做的 <a href="https://www.zhangxinxu.com/wordpress/2014/06/svg-canvas-image-border-radius/" target="_blank" rel="noopener">svg圆角</a>。<br>首先对于每一个node节点对应生成pattern标签，用g标签做分组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> timestamp = <span class="built_in">Date</span>.now()</span><br><span class="line">svg.append(<span class="string">"defs"</span>)</span><br><span class="line">.data(data.graph)</span><br><span class="line">.append(<span class="string">"pattern"</span>)</span><br><span class="line">.attr(<span class="string">"patternUnits"</span>,<span class="string">"objectBoundingBox"</span>)</span><br><span class="line">.attr(<span class="string">"patternContentUnits"</span>,<span class="string">"userSpaceOnUse"</span>)</span><br><span class="line">.attr(<span class="string">"id"</span>,d=&gt;d.id+<span class="string">'_'</span>+ timestamp)</span><br><span class="line">.append(<span class="string">"image"</span>)</span><br><span class="line">.attr(<span class="string">"xlink:href"</span>,d=&gt;d.imageUrl)</span><br><span class="line">nodes.selectAll(<span class="string">"circle"</span>)</span><br><span class="line">.data(data.graph)</span><br><span class="line">.append(<span class="string">"circle"</span>)</span><br><span class="line">.attr(<span class="string">"fill"</span>,d=&gt;<span class="string">`url(#<span class="subst">$&#123;d.id&#125;</span>_<span class="subst">$&#123;timestamp&#125;</span>)`</span>)</span><br></pre></td></tr></table></figure>
+<p>这里先缓存一个一个当前时间戳变量，方便后面为pattern标签生成唯一的id，然后在svg中添加一个defs标签，defs标签用法可以参考相关资料，在这里就不多说啦。然后在defs中添加多个pattern，为每一个pattern生成唯一的id，方便后面circle标签引用。由于需求中提到主节点和其他分支节点的大小不一样，所以我在这里设置为pattern设置了patternUnits属性,这个属性可以方便用户定义pattern大小。</p>
+<h4 id="patternUnits"><a href="#patternUnits" class="headerlink" title="patternUnits"></a>patternUnits</h4><ol>
+<li>objectBoundingBox：设置pattern 大小为相对值，设置范围是0~1</li>
+<li>userSpaceOnUser: 设置pattern大小为绝对值<h4 id="patternContentUnits"><a href="#patternContentUnits" class="headerlink" title="patternContentUnits"></a>patternContentUnits</h4></li>
+<li>objectBoundingBox：设置pattern中内容大小为相对值，设置范围是0~1</li>
+<li>userSpaceOnUser: 设置pattern中内容大小为绝对值</li>
+</ol>
+<p>相关资料可以参考w3cplus上面相关文章：<br><a href="https://www.w3cplus.com/svg/svg-pattern-element.html" target="_blank" rel="noopener">https://www.w3cplus.com/svg/svg-pattern-element.html</a></p>
+<p>该效果的主体 内容就这么多，至于图片后面蓝色小点纯粹是为了装饰用，在实际中没有意义。相关实现思路为在每个图片节点后面添加三个小节点数据，然后加上对应的标志，在更新位置与设置样式的时候与其他节点区别对待。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setEmptyNodes</span>(<span class="params">data, num</span>) </span>&#123;</span><br><span class="line">	data.nodes.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (!item.main) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; num; i++) &#123;</span><br><span class="line">				data.nodes.push(&#123;</span><br><span class="line">					id: <span class="string">`<span class="subst">$&#123;item.id&#125;</span>_empty_<span class="subst">$&#123;i&#125;</span>`</span>,</span><br><span class="line">					name: <span class="string">``</span>,</span><br><span class="line">					empty: <span class="literal">true</span>,</span><br><span class="line">					parentNode: item.id</span><br><span class="line">				&#125;);</span><br><span class="line">				data.links.push(&#123;</span><br><span class="line">					source: item.id,</span><br><span class="line">					target: <span class="string">`<span class="subst">$&#123;item.id&#125;</span>_empty_<span class="subst">$&#123;i&#125;</span>`</span></span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如此，一个简单的力导向图就大功告成啦。</p>
+<h3 id="7-感受"><a href="#7-感受" class="headerlink" title="7.感受"></a>7.感受</h3><p>d3不愧是前端数据可视化最流行的框架，用了一次就感受到了它无比强大。想比echarts来说，d3更灵活，可以实现更加丰富的效果。最后附上d3的官网地址 <a href="https://d3js.org/" target="_blank" rel="noopener">https://d3js.org/</a>。希望还没有使用过d3的小伙伴们可以在以后的工作过程中运用。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/d3/" rel="tag"># d3</a>
+          
+            <a href="/tags/数据可视化/" rel="tag"># 数据可视化</a>
+          
+            <a href="/tags/图表/" rel="tag"># 图表</a>
+          
+            <a href="/tags/chart/" rel="tag"># chart</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/18/hexo-startkit/" rel="prev" title="hexo简介">
+                hexo简介 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/10278192?s=400&u=06bc70b5721f397f269b1234c6c59fa854fcdf09&v=4" alt="Calvinvt">
+            
+              <p class="site-author-name" itemprop="name">Calvinvt</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#d3初体验"><span class="nav-number">1.</span> <span class="nav-text">d3初体验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-构建力导向图"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.构建力导向图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建节点"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 创建节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#enter"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">enter()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exit"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">exit()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-创建连线和文字"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 创建连线和文字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-连接节点和连线"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.连接节点和连线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-实现拖拽"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 实现拖拽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-圆形图片"><span class="nav-number">1.0.6.</span> <span class="nav-text">6. 圆形图片</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#patternUnits"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">patternUnits</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#patternContentUnits"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">patternContentUnits</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-感受"><span class="nav-number">1.0.7.</span> <span class="nav-text">7.感受</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calvinvt</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
