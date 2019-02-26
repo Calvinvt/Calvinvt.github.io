@@ -96,18 +96,17 @@
 
 
 
-  <meta name="description" content="对象属性添加与删除1234567891011let vm = new Vue(&amp;#123;	data() &amp;#123;   	return &amp;#123;    	a    &amp;#125;  &amp;#125;&amp;#125;)vm.b = &quot;xxxx&quot; //非响应vm.a = &quot;xxx&quot; //响应vm.$set(&apos;b&apos;,&quot;xxxx&quot;)//响应 Vue 不能检测以上属性添加或删除的变化，必须使用 Vue.se">
-<meta name="keywords" content="Javascript framework,Vue">
+  <meta name="keywords" content="Javascript framework,Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue防坑指南">
 <meta property="og:url" content="http://yoursite.com/2019/02/03/Vue防坑指南/index.html">
 <meta property="og:site_name" content="Calvinvt&#39;s blog">
-<meta property="og:description" content="对象属性添加与删除1234567891011let vm = new Vue(&amp;#123;	data() &amp;#123;   	return &amp;#123;    	a    &amp;#125;  &amp;#125;&amp;#125;)vm.b = &quot;xxxx&quot; //非响应vm.a = &quot;xxx&quot; //响应vm.$set(&apos;b&apos;,&quot;xxxx&quot;)//响应 Vue 不能检测以上属性添加或删除的变化，必须使用 Vue.se">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-24T14:13:18.037Z">
+<meta property="og:image" content="https://images.pexels.com/photos/169573/pexels-photo-169573.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+<meta property="og:updated_time" content="2019-02-26T13:32:26.028Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue防坑指南">
-<meta name="twitter:description" content="对象属性添加与删除1234567891011let vm = new Vue(&amp;#123;	data() &amp;#123;   	return &amp;#123;    	a    &amp;#125;  &amp;#125;&amp;#125;)vm.b = &quot;xxxx&quot; //非响应vm.a = &quot;xxx&quot; //响应vm.$set(&apos;b&apos;,&quot;xxxx&quot;)//响应 Vue 不能检测以上属性添加或删除的变化，必须使用 Vue.se">
+<meta name="twitter:image" content="https://images.pexels.com/photos/169573/pexels-photo-169573.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
 
 
 
@@ -409,7 +408,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-24 22:13:18" itemprop="dateModified" datetime="2019-02-24T22:13:18+08:00">2019-02-24</time>
+                <time title="修改时间：2019-02-26 21:32:26" itemprop="dateModified" datetime="2019-02-26T21:32:26+08:00">2019-02-26</time>
               
             
           </span>
@@ -458,7 +457,7 @@
       
 
       
-        <p><a name="75c4d379"></a></p>
+        <p><img src="https://images.pexels.com/photos/169573/pexels-photo-169573.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt=""><br><a id="more"></a><br><a name="75c4d379"></a></p>
 <h3 id="对象属性添加与删除"><a href="#对象属性添加与删除" class="headerlink" title="对象属性添加与删除"></a>对象属性添加与删除</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">	data() &#123; </span><br><span class="line">  	<span class="keyword">return</span> &#123;</span><br><span class="line">    	a</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">vm.b = <span class="string">"xxxx"</span> <span class="comment">//非响应</span></span><br><span class="line">vm.a = <span class="string">"xxx"</span> <span class="comment">//响应</span></span><br><span class="line"></span><br><span class="line">vm.$set(<span class="string">'b'</span>,<span class="string">"xxxx"</span>)<span class="comment">//响应</span></span><br></pre></td></tr></table></figure>
 <p>Vue 不能检测以上属性添加或删除的变化，必须使用 Vue.set 或者 vm.$set 设置属性</p>
 <p><a name="df352415"></a></p>
