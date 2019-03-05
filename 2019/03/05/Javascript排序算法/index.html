@@ -96,22 +96,20 @@
 
 
 
-  <meta name="description" content="开篇排序是我们日常开发中非常常用的一种操作。目前最经典的排序算法有十种，分别是：冒泡排序、选择排序、插入排序、希尔排序、归并排序、快速排序、堆排序、计数排序、桶排序。下面我们介绍两种最常用的排序算法：冒泡排序和快速排序。  冒泡排序冒泡排序实现思想比较简单，但是性能较差，适合作为培训教学使用。主要实现思想是：遍历数据中每一个节点，如果不合符我们预期的顺序则和下一个数据交换位置，依此类推。实现代码">
-<meta name="keywords" content="算法,排序">
+  <meta name="keywords" content="算法,排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Javascript排序算法">
 <meta property="og:url" content="http://yoursite.com/2019/03/05/Javascript排序算法/index.html">
 <meta property="og:site_name" content="Calvinvt&#39;s blog">
-<meta property="og:description" content="开篇排序是我们日常开发中非常常用的一种操作。目前最经典的排序算法有十种，分别是：冒泡排序、选择排序、插入排序、希尔排序、归并排序、快速排序、堆排序、计数排序、桶排序。下面我们介绍两种最常用的排序算法：冒泡排序和快速排序。  冒泡排序冒泡排序实现思想比较简单，但是性能较差，适合作为培训教学使用。主要实现思想是：遍历数据中每一个节点，如果不合符我们预期的顺序则和下一个数据交换位置，依此类推。实现代码">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://images.pexels.com/photos/205316/pexels-photo-205316.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/gif/149846/1551170760364-233f98f8-4890-432b-9603-9a9876e86283.gif#align=left&display=inline&height=232&originHeight=257&originWidth=826&size=0&status=done&width=746">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/gif/149846/1551170760350-1d8e709f-2266-456d-967a-25ba1682e275.gif#align=left&display=inline&height=232&originHeight=252&originWidth=811&size=0&status=done&width=746">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/149846/1551170760356-3d45ea06-0a88-4fb5-9dfb-f091019e8db4.png#align=left&display=inline&height=504&originHeight=1272&originWidth=1882&size=0&status=done&width=746">
-<meta property="og:updated_time" content="2019-03-05T15:25:24.921Z">
+<meta property="og:updated_time" content="2019-03-05T15:32:27.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript排序算法">
-<meta name="twitter:description" content="开篇排序是我们日常开发中非常常用的一种操作。目前最经典的排序算法有十种，分别是：冒泡排序、选择排序、插入排序、希尔排序、归并排序、快速排序、堆排序、计数排序、桶排序。下面我们介绍两种最常用的排序算法：冒泡排序和快速排序。  冒泡排序冒泡排序实现思想比较简单，但是性能较差，适合作为培训教学使用。主要实现思想是：遍历数据中每一个节点，如果不合符我们预期的顺序则和下一个数据交换位置，依此类推。实现代码">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/gif/149846/1551170760364-233f98f8-4890-432b-9603-9a9876e86283.gif#align=left&display=inline&height=232&originHeight=257&originWidth=826&size=0&status=done&width=746">
+<meta name="twitter:image" content="https://images.pexels.com/photos/205316/pexels-photo-205316.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
 
 
 
@@ -396,7 +394,7 @@
                 
               
 
-              <time title="创建时间：2019-03-05 22:50:06 / 修改时间：23:25:24" itemprop="dateCreated datePublished" datetime="2019-03-05T22:50:06+08:00">2019-03-05</time>
+              <time title="创建时间：2019-03-05 22:50:06 / 修改时间：23:32:27" itemprop="dateCreated datePublished" datetime="2019-03-05T22:50:06+08:00">2019-03-05</time>
             
 
             
@@ -406,6 +404,24 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -448,7 +464,7 @@
       
 
       
-        <p><a name="34fe9f5c"></a></p>
+        <p><img src="https://images.pexels.com/photos/205316/pexels-photo-205316.png?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940" alt=""><br><a id="more"></a><br><a name="34fe9f5c"></a></p>
 <h2 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h2><p>排序是我们日常开发中非常常用的一种操作。目前最经典的排序算法有十种，分别是：冒泡排序、选择排序、插入排序、希尔排序、归并排序、快速排序、堆排序、计数排序、桶排序。下面我们介绍两种最常用的排序算法：冒泡排序和快速排序。</p>
 <p><a name="5d7ecc89"></a></p>
 <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序实现思想比较简单，但是性能较差，适合作为培训教学使用。主要实现思想是：遍历数据中每一个节点，如果不合符我们预期的顺序则和下一个数据交换位置，依此类推。<br><br><img src="https://cdn.nlark.com/yuque/0/2019/gif/149846/1551170760364-233f98f8-4890-432b-9603-9a9876e86283.gif#align=left&amp;display=inline&amp;height=232&amp;originHeight=257&amp;originWidth=826&amp;size=0&amp;status=done&amp;width=746" alt=""><br><br>实现代码如下：</p>
@@ -498,8 +514,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/28/express-cache/" rel="next" title="express中的服务端缓存">
-                <i class="fa fa-chevron-left"></i> express中的服务端缓存
+              <a href="/2019/02/28/express-cache/" rel="next" title="Express中的服务端缓存">
+                <i class="fa fa-chevron-left"></i> Express中的服务端缓存
               </a>
             
           </div>
@@ -604,7 +620,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
