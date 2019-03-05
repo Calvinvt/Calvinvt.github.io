@@ -346,6 +346,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/Javascript排序算法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calvinvt">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calvinvt's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/05/Javascript排序算法/" class="post-title-link" itemprop="url">Javascript排序算法</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-05 22:50:06 / 修改时间：23:25:24" itemprop="dateCreated datePublished" datetime="2019-03-05T22:50:06+08:00">2019-03-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/03/05/Javascript排序算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/05/Javascript排序算法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a name="34fe9f5c"></a></p>
+<h2 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h2><p>排序是我们日常开发中非常常用的一种操作。目前最经典的排序算法有十种，分别是：冒泡排序、选择排序、插入排序、希尔排序、归并排序、快速排序、堆排序、计数排序、桶排序。下面我们介绍两种最常用的排序算法：冒泡排序和快速排序。</p>
+<p><a name="5d7ecc89"></a></p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序实现思想比较简单，但是性能较差，适合作为培训教学使用。主要实现思想是：遍历数据中每一个节点，如果不合符我们预期的顺序则和下一个数据交换位置，依此类推。<br><br><img src="https://cdn.nlark.com/yuque/0/2019/gif/149846/1551170760364-233f98f8-4890-432b-9603-9a9876e86283.gif#align=left&amp;display=inline&amp;height=232&amp;originHeight=257&amp;originWidth=826&amp;size=0&amp;status=done&amp;width=746" alt=""><br><br>实现代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//交换数组元素</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">arr,n,n1</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> temp = arr[n];</span><br><span class="line">	arr[n] = arr[n1];</span><br><span class="line">	arr[n1] = temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//冒泡排序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=arr.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">0</span>;j&lt;i;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[j]&gt;arr[i]) &#123;</span><br><span class="line">                swap(arr,j,i)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a name="5ee213ee"></a></p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序是已知排序算法中最快的之一，适合数据量较大的时候使用。其主要实现思想是：先取一个基数（一般取数据的中间位置），然后对基数两边的数据分别排序，比基数大的放右边，比基数小的放左边。之后，对左右两边的数据进行以上相同的操作，直到左右两边数据为空。<br><br><img src="https://cdn.nlark.com/yuque/0/2019/gif/149846/1551170760350-1d8e709f-2266-456d-967a-25ba1682e275.gif#align=left&amp;display=inline&amp;height=232&amp;originHeight=252&amp;originWidth=811&amp;size=0&amp;status=done&amp;width=746" alt=""><br><br>实现代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//快速排序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> piovtIndex = <span class="built_in">Math</span>.floor(arr.length/<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(arr.length&lt;=<span class="number">1</span>) <span class="keyword">return</span> arr;</span><br><span class="line">	<span class="keyword">let</span> piovt = arr.splice(piovtIndex,<span class="number">1</span>)[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">let</span> _left = []</span><br><span class="line">	<span class="keyword">let</span> _right = []</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">		<span class="keyword">let</span> item = arr[i];</span><br><span class="line">		<span class="keyword">if</span>(item&lt;piovt) &#123;</span><br><span class="line">			_left.push(item)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			_right.push(item)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> quickSort(_left).concat([piovt],quickSort(_right))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a name="25f9c7fa"></a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="https://cdn.nlark.com/yuque/0/2019/png/149846/1551170760356-3d45ea06-0a88-4fb5-9dfb-f091019e8db4.png#align=left&amp;display=inline&amp;height=504&amp;originHeight=1272&amp;originWidth=1882&amp;size=0&amp;status=done&amp;width=746" alt=""><br><br>不难看出：两种算法相对比之下，快速排序的所用的操作更少。下面我们用一个例子来验证下这个结论：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> _arr = []</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">100000</span>;i++) &#123;</span><br><span class="line">	_arr.push(<span class="built_in">Math</span>.ceil(<span class="built_in">Math</span>.random()*<span class="number">100</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// console.log(_arr)</span></span><br><span class="line"><span class="comment">//快速排序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> piovtIndex = <span class="built_in">Math</span>.floor(arr.length/<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">if</span>(arr.length&lt;=<span class="number">1</span>) <span class="keyword">return</span> arr;</span><br><span class="line">	<span class="keyword">let</span> piovt = arr.splice(piovtIndex,<span class="number">1</span>)[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">let</span> _left = []</span><br><span class="line">	<span class="keyword">let</span> _right = []</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">		<span class="keyword">let</span> item = arr[i];</span><br><span class="line">		<span class="keyword">if</span>(item&lt;piovt) &#123;</span><br><span class="line">			_left.push(item)</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			_right.push(item)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> quickSort(_left).concat([piovt],quickSort(_right))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//交换数组元素</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">arr,n,n1</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> temp = arr[n];</span><br><span class="line">	arr[n] = arr[n1];</span><br><span class="line">	arr[n1] = temp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//冒泡排序</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=arr.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">0</span>;j&lt;i;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[j]&gt;arr[i]) &#123;</span><br><span class="line">                swap(arr,j,i)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试</span></span><br><span class="line"><span class="keyword">let</span> time1 = <span class="built_in">Date</span>.now()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = bubbleSort(_arr)</span><br><span class="line"></span><br><span class="line"><span class="comment">// console.log(a)</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'冒泡排序用时：'</span>,<span class="built_in">Date</span>.now()-time1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> time2 = <span class="built_in">Date</span>.now()</span><br><span class="line">quickSort(_arr)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'快速排序用时：'</span>,<span class="built_in">Date</span>.now()-time2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 冒泡排序用时： 5373</span></span><br><span class="line"><span class="comment">// 快速排序用时： 533</span></span><br></pre></td></tr></table></figure>
+<p>在数据量为10w时，结果输出为冒泡排序用时5373ms,快速排序用时533ms，两者性能相差10倍之多！</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/express-cache/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -408,7 +575,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-05 12:49:08" itemprop="dateModified" datetime="2019-03-05T12:49:08+08:00">2019-03-05</time>
+                <time title="修改时间：2019-03-05 12:50:49" itemprop="dateModified" datetime="2019-03-05T12:50:49+08:00">2019-03-05</time>
               
             
           </span>
@@ -1209,7 +1376,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-26 21:32:26" itemprop="dateModified" datetime="2019-02-26T21:32:26+08:00">2019-02-26</time>
+                <time title="修改时间：2019-03-05 12:50:49" itemprop="dateModified" datetime="2019-03-05T12:50:49+08:00">2019-03-05</time>
               
             
           </span>
@@ -1736,7 +1903,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1802,7 +1969,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
