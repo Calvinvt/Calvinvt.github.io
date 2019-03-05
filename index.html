@@ -346,6 +346,243 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/express-cache/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Calvinvt">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Calvinvt's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/02/28/express-cache/" class="post-title-link" itemprop="url">express中的服务端缓存</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-28 20:50:18" itemprop="dateCreated datePublished" datetime="2019-02-28T20:50:18+08:00">2019-02-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-05 12:49:08" itemprop="dateModified" datetime="2019-03-05T12:49:08+08:00">2019-03-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/翻译计划/" itemprop="url" rel="index"><span itemprop="name">翻译计划</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/02/28/express-cache/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/28/express-cache/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>原文地址：<a href="https://blog.bitsrc.io/server-side-caching-in-expressjs-24038daec102" target="_blank" rel="noopener">https://blog.bitsrc.io/server-side-caching-in-expressjs-24038daec102</a><br>作者：Chidume Nnamdi</p>
+</blockquote>
+<p>缓存已经是在软件开发过程中被广泛应用的技巧之一。在这篇文章中，我们将看看如何在 express 服务端启用缓存。</p>
+<h2 id="服务端缓存-基本理念"><a href="#服务端缓存-基本理念" class="headerlink" title="服务端缓存-基本理念"></a>服务端缓存-基本理念</h2><p>Web 应用通常在服务端获取新数据然后在 DOM 中渲染。这给服务器带来了大量的负担，因为它需要大量的处理能力取产生动态数据。浏览器端利用缓存来防止频繁的请求。浏览器有内部缓存机制来允许在相同的请求发生时存储请求的响应并且用缓存的响应数据来响应请求。这有助于防止来自相同请求的频繁服务器操作。</p>
+<p>虽然浏览器有帮助，但是服务器需要为不同的浏览器和用户运行和渲染。服务器端必须找到一种优化长操作的方法。这已经可以通过运用缓存来做到了。</p>
+<h2 id="什么是缓存？"><a href="#什么是缓存？" class="headerlink" title="什么是缓存？"></a>什么是缓存？</h2><p>在我们开始探究服务器缓存之前先让我们明白什么是缓存？<br>缓存的概念是存储 CPU 密集型操作的结果，以便在下次执行具有相同输入同样的操作时，结果从储存中返回而不是重新执行消耗资源的操作。<br>在编程中，函数通常被缓存，这个过程称为记忆化。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">longOp</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// simulating a long operation using setTimeout</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'done with longOp func'</span>)</span><br><span class="line">        result = <span class="number">90</span> * input</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line">longOp(<span class="number">5</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">50</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">500</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">5000</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line"><span class="comment">// Total ms to run: 4000 ms!</span></span><br><span class="line">longOp(<span class="number">5</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">50</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">500</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">5000</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line"><span class="comment">// Total ms to run: 4000 ms! again</span></span><br></pre></td></tr></table></figure></p>
+<p>以上函数运行花了1000ms,我们试着用不同的输入调用它：5,50,500,5000。我们的文件总共花了4000ms去运行。再次运行相同的输入将同样需要4000ms。<br>现在，因为我们知道输出依赖输入 return input*90。我们可以储存每一次输入产生的结果，并且在下一次同样输入调用时返回。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">longOp</span>(<span class="params">input</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result  = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span>(cache[input]) &#123;</span><br><span class="line">        <span class="keyword">return</span> cache[input];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">            result = input * <span class="number">90</span>;</span><br><span class="line">            cache[input] = result;</span><br><span class="line">        &#125;,<span class="number">1000</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们在 loogOp 函数中加入了缓存。缓存对象是我们为每一次输入储存计算结果的地方。当函数被调用，我们检查缓存对象中是否有结果，如果有我们将跳过一个长操作并返回结果，如果没有，我们执行长操作并将结果存到缓存中，用输入作为 key 值，这样在下一次同样输入的函数调用中，我们可以在缓存中找到相应结果并返回。<br>如果我们再次运行loogOp：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">longOp(<span class="number">5</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">50</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">500</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line">longOp(<span class="number">5000</span>) <span class="comment">// takes 1000 ms to complete</span></span><br><span class="line"><span class="comment">// Total ms to run: 4000 ms!</span></span><br><span class="line">longOp(<span class="number">5</span>) <span class="comment">// takes 1 ms to complete</span></span><br><span class="line">longOp(<span class="number">50</span>) <span class="comment">// takes 1 ms to complete</span></span><br><span class="line">longOp(<span class="number">500</span>) <span class="comment">// takes 1 ms to complete</span></span><br><span class="line">longOp(<span class="number">5000</span>) <span class="comment">// takes 1 ms to complete</span></span><br><span class="line"><span class="comment">// Total ms to run: 4 ms! again :)</span></span><br></pre></td></tr></table></figure></p>
+<p>您看，这是一个巨大的性能提升。从4000ms到4ms,第一次运行没有缓存，第二次运行仅仅从缓存中返回了第一次运行的结果。<br>现在，我们已经明白了缓存的意义，让我们继续。</p>
+<blockquote>
+<p>Tips:用<a href="https://github.com/teambit/bit" target="_blank" rel="noopener">Bit</a> 在项目之间共享组件，并且可以更快的构建JS应用。这是从repo共享包并且使用他们的最快的方法。<br><img src="https://cdn-images-1.medium.com/max/1600/1*Yhkh7jbS5Mx9uP96Y88pZg.gif" alt=""></p>
+</blockquote>
+<p>我们经历了相同的事情，当我们在用 express.js :一个快速搭建服务的 Node.js 框架。假设我们有一个像这样的索引路径：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">// simulating a long process</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">        res.send(<span class="string">'message from route /'</span>)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>我们在这里有一个路由，它将会返回 <code>message from route /</code>消息，我们使用setTimeout模拟一个缓慢的进程。这就好比如果我们是一个新闻网站服务器API，我们生成近千条新闻。这将花费近1000ms来为我们的用户交付新闻负载。<br>来试试这个，新建一个 Node 项目并且安装 express 模块：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir expr-cache-prj</span><br><span class="line">cd expr-cache-prj</span><br><span class="line">npm init -y</span><br><span class="line">npm i express</span><br><span class="line">touch index.js</span><br></pre></td></tr></table></figure></p>
+<p>将下面的内容粘贴到 index.js 文件中：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir expr-cache-prj</span><br><span class="line"><span class="built_in">cd</span> expr-cache-prj</span><br><span class="line">npm init -y</span><br><span class="line">npm i express</span><br><span class="line">touch index.js</span><br></pre></td></tr></table></figure></p>
+<p>在命令行中运行<code>node ./</code>来启动服务：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node ./</span><br><span class="line">server:3000</span><br></pre></td></tr></table></figure></p>
+<p>打开您最喜爱的浏览器并导航到<code>localhost:3000</code>。打开开发者工具并切换到 Network 面板。</p>
+<p><img src="https://cdn-images-1.medium.com/max/2600/1*g2IiQF7E5wUiR-boTdbebw.png" alt=""></p>
+<p>您可以在 timeline 面板中看到渲染路由大约花费了1090ms,因为1000ms 花在了服务响应，剩下的90m花在了将  message 内容渲染。您了解服务器如何影响我们 Web 应用的性能。优化不仅仅是在客户端的，服务器的优化更为重要。如果您的服务器端应用需要1000毫秒来发送客户端将采用的数据（1000 + 0.000001）1000.000001毫秒进行渲染，那么优化客户端甚至可以达到0.000001毫秒。</p>
+<p>如果我们将时间增加到9000ms:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">// simulating a long process</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        res.send(<span class="string">'message from route /'</span>)</span><br><span class="line">    &#125;, <span class="number">9000</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn-images-1.medium.com/max/2600/1*UJ5Mk5V_VBFd-ljLPi8Clw.png" alt=""></p>
+<p>在这里消息渲染花费了9074ms,在这9074ms中，服务器发送消息花费了9000ms。</p>
+<p>现在让我们看看使用缓存的 express 的不同技术：</p>
+<h2 id="使用自定义缓存技术"><a href="#使用自定义缓存技术" class="headerlink" title="使用自定义缓存技术"></a>使用自定义缓存技术</h2><p>在 express 中，中间件是添加缓存的理想方式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> middleWare1 = <span class="function">(<span class="params">req,res,next</span>)=&gt;</span> &#123;</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> middleWare2 = <span class="function">(<span class="params">req,res,next</span>) =&gt;</span> &#123;</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line">app.get(route,middleWare1,middleWare2)</span><br></pre></td></tr></table></figure>
+<p>当路由被访问时，express 调用middleWare1，middleWare1 调用next ，express 调用下一个中间件 middleWare2，middleWare2 调用 next，然后因为没有更多的中间件内联执行退出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">expressjs</span><br><span class="line">    |</span><br><span class="line">    v</span><br><span class="line">route match</span><br><span class="line">    |</span><br><span class="line">    v</span><br><span class="line">middleWare1</span><br><span class="line">    |</span><br><span class="line">    v</span><br><span class="line">middleWare2</span><br></pre></td></tr></table></figure>
+<p>一般来说，我们在最后一个中间件里将数据发送给用户。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> middleWare1 = <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    next()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> middleWare2 = <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    res.send(<span class="string">'expressjs data'</span>)</span><br><span class="line">&#125;</span><br><span class="line">app.get(route, middleWare1, middleWare2)</span><br></pre></td></tr></table></figure></p>
+<p>如果我们在 middleWare1 中添加中间件，我们会看到完美的配合。它将会首先运行，所以我们要检查路由是否被缓存。如果是，我们会从 middleWare1 发送缓存结果，如果不是，我们将冒泡到 middleWare2.<br>在我们 <code>/</code>路由中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.get(<span class="string">'/'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">// simulating a long process</span></span><br><span class="line">    wait(<span class="number">1000</span>)</span><br><span class="line">    res.send(<span class="string">'message from route /'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>我们将添加一个中间件来保存我们的缓存代码。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> middware = <span class="function">(<span class="params">req,res,next</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> key = req.url;</span><br><span class="line">    <span class="keyword">if</span>(cache[key]) &#123;</span><br><span class="line">        res.send(<span class="string">'from cache'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res.sendResponse = res.send;</span><br><span class="line">        res.send = <span class="function">(<span class="params">body</span>)=&gt;</span>&#123;</span><br><span class="line">            cache[key] = body;</span><br><span class="line">            res.sendResponse(body);</span><br><span class="line">        &#125;</span><br><span class="line">        next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">app.get(<span class="string">'/'</span>,middleware,(req,res)=&gt;&#123;</span><br><span class="line">    wait(<span class="number">1000</span>);</span><br><span class="line">    res.send(<span class="string">'message from route /'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>我们创建了中间件 middleware。我们创建了存放缓存结果的对象。在 middleware 函数中，我们用请求的路径作为键。首先我们检查基于请求的路径的 key 在缓存对象中是否存在。如果是，我们发送从缓存中发送响应，如果没有，我们在缓存对象中储存请求体并且发送响应以便下一次请求可以直接提取缓存数据。</p>
+<p>如果我们在服务端运行以上代码，我们将在浏览器中看到改进：</p>
+<p><img src="https://cdn-images-1.medium.com/max/2600/1*OdfINqOXN690s6_Meea5Tg.png" alt=""></p>
+<p>看到了没，浏览器花了23ms来渲染。是我们上一次的一半多。<br>我们已经明白来怎么在 express 服务中添加缓存。我们上面做的有以下缺点：</p>
+<ol>
+<li>我们将缓存存储在进程中，一旦我们的服务挂掉，我们将从头开始缓存。</li>
+<li>缓存不能在同一进程中多数服务中共享。</li>
+</ol>
+<p>NB 缓存在get类型路由是可行的，但是不能用在 put,delete,post 路由中。当输出依赖与输入时，在get路由才能添加缓存。get路由副作用永远不应该被缓存，因为输出会随着时间而变化。</p>
+<h2 id="采用Redis"><a href="#采用Redis" class="headerlink" title="采用Redis"></a>采用Redis</h2><p><em>Redis是一个非传统数据库，被称为数据结构服务器。它可以在内存中以极快的速度运行。</em><br>Redis 在内存存储数据方面非常强大，我们可以在我们的应用中用它做数据缓存或者数据库。它主要的AIP由<code>set(key,value)</code>和<code>get(key)</code>组成。为了在我们已有的应用中整合 Redis，我们开始安装Redis模块。<br>首先，我们安装Redis npm 模块：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i redis</span><br></pre></td></tr></table></figure></p>
+<p>现在，我们创建了一个 Redis 模块并且和 Redis 服务建立了🔗。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> redis = <span class="built_in">require</span>(<span class="string">'redis'</span>);</span><br><span class="line"><span class="keyword">const</span> client = redis.createClient()</span><br></pre></td></tr></table></figure></p>
+<p>我们像这样编辑 exp.js：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> redis = <span class="built_in">require</span>(<span class="string">'redis'</span>);</span><br><span class="line"><span class="keyword">const</span> client = redis.createClient()</span><br><span class="line">client.on(<span class="string">'connect'</span>,()=&gt;&#123;</span><br><span class="line">    log(<span class="string">'redis connected'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"><span class="keyword">const</span> log = <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">var</span> midWare = <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> key = req.url</span><br><span class="line">    client.get(key, (err, result) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (err == <span class="literal">null</span> &amp;&amp; result != <span class="literal">null</span>) &#123;</span><br><span class="line">            res.send(<span class="string">'from cache'</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.sendResponse = res.send</span><br><span class="line">            res.send = <span class="function">(<span class="params">body</span>) =&gt;</span> &#123;</span><br><span class="line">                client.set(key, body, (err, reply) =&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> (reply == <span class="string">'OK'</span>)</span><br><span class="line">                        res.sendResponse(body)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            next()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">app.get(<span class="string">'/'</span>, midWare, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">// simulating a long process</span></span><br><span class="line">    wait(<span class="number">1000</span>)</span><br><span class="line">    res.send(<span class="string">'message from route /'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>和上面的代码一样，我们只是改为用 Redis 替代。<code>client.get(key,cb)</code>参考传入的密钥从存储中检索储存的值。</p>
+<h2 id="采用Memcached"><a href="#采用Memcached" class="headerlink" title="采用Memcached"></a>采用Memcached</h2><p>使用Memcached，我们将安装 memjs npm 模块：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i memjs</span><br></pre></td></tr></table></figure></p>
+<p>并在我们的exp.js中配置它:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> memjs = <span class="built_in">require</span>(<span class="string">'memjs'</span>)</span><br><span class="line"><span class="keyword">const</span> mc = memjs.Client.create()</span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"><span class="keyword">const</span> log = <span class="built_in">console</span></span><br><span class="line"><span class="keyword">var</span> midWare = <span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> key = req.url</span><br><span class="line">    mc.get(key, (err, val) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (err == <span class="literal">null</span> &amp;&amp; val != <span class="literal">null</span>) &#123;</span><br><span class="line">            res.send(<span class="string">'from cache'</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.sendResponse = res.send</span><br><span class="line">            res.send = <span class="function">(<span class="params">body</span>) =&gt;</span> &#123;</span><br><span class="line">                mc.set(key, body, &#123; <span class="attr">expires</span>: <span class="number">0</span> &#125;, (err, reply) =&gt; &#123;</span><br><span class="line">                    <span class="keyword">if</span> (reply == <span class="string">'OK'</span>)</span><br><span class="line">                        res.sendResponse(body)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">            next()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">app.get(<span class="string">'/'</span>, midWare, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">// simulating a long process</span></span><br><span class="line">    wait(<span class="number">1000</span>)</span><br><span class="line">    res.send(<span class="string">'message from route /'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>与 Redis 相同，唯一改变的是客户端到 mc。 Redis 和 Memcached 具有几乎相同的 API，具有相同的功能。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>我们看到 expressjs 中的服务器端缓存是什么以及如何使用自定义代码配置一个。接下来，我们了解了如何使用 Redis 和 Memcached 将缓存添加到 expressjs 服务器。</p>
+<p>缓存是我们加速应用程序尤其是服务器端应用程序的最佳优化技巧之一。许多人称它为不同的名称：memoization，这一切都归结为缓存的相同想法。</p>
+<p>如果您对此或我应该添加、更正或删除的任何问题有任何疑问，请随时在下面发表评论并向我询问任何问题！谢谢 ！！！</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/21/javascript/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1499,7 +1736,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1557,7 +1794,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
